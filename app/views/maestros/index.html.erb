@@ -1,0 +1,18 @@
+<ul>
+  <% @maestros.each do |maestro| %>
+    <li>
+      <% if maestro.favorite %> * <% end %>
+      <b><%= maestro.artist %></b>
+      <%= "|" %>
+      <%= maestro.album %>
+      <%= "|" %>
+      <i><%= maestro.genre %></i>
+      <%= link_to "Show", maestro_path(maestro) %>
+      <%= link_to "Edit", edit_maestro_path(maestro) %>
+      <!-- Need to define method: :delete -->
+      <%= link_to "Remove", maestro_path(maestro), method: :delete %>
+    </li>
+    <% end %>
+</ul>
+
+<%= link_to "Add New Artist and Album", new_maestro_path %>

@@ -1,40 +1,49 @@
 class MaestrosController < ApplicationController
 
+  before_action :find_maestro, only: [:show, :edit, :update, :destroy]
+
   def index
     @maestros = Maestro.all
   end
 
   def show
-    @maestro = Maestro.find(params[:id])
   end
 
   def new
-    @maestro = Maestro.new
+    @maestro = Maestro.order(:artist)
   end
 
-  def created
-    @maestro = Maestro.create(mae_params)
-    redirect_to action: :index
+  def create
+    @maestro = Maestro.new(mae_params)
+    if maestro.save
+      redirect_to action: :index
+    else
+      render :new
+    end
   end
 
   def edit
-    @maestro = Maestro.find(params[:id])
   end
 
   def update
-    @maestro = Maestro.find(params[:id])
-    @maestro.update_attributes(mae_params)
-    redirect_to action: :index
+    if @maestro.update_attributes(mae_params)
+      redirect_to action: :index
+    else
+      render :edit
+    end
   end
 
   def destroy
-    @maestro = Maestro.find(params[:id])
     @maestro.destroy
     redirect_to action: :index
   end
 
 
   private
+
+  def find_maestro
+    @maestro = Maestro.find(params[:id])
+  end
 
   def mae_params
     params.require(:maestro).permit(:artist, :album, :genre, :favorite)
