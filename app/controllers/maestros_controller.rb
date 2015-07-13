@@ -3,14 +3,14 @@ class MaestrosController < ApplicationController
   before_action :find_maestro, only: [:show, :edit, :update, :destroy]
 
   def index
-    @maestros = Maestro.all
+    @maestros = Maestro.order(:artist)
   end
 
   def show
   end
 
   def new
-    @maestro = Maestro.order(:artist)
+    @maestro = Maestro.new
   end
 
   def create
