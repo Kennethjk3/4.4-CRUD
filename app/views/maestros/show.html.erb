@@ -1,0 +1,9 @@
+<h3><%= @maestro.artist %></h3>
+
+  <p><%= @maestro.album %></p>
+
+  <p><%= @maestro.genre %></p>
+
+  <p><% if @maestro.favorite %> (This is MY JAM!!!) <% end %></p>
+
+  <p><%= link_to "Music List", maestros_path %></p>
